@@ -30,3 +30,18 @@ python setup.py bdist_wheel --plat-name=manylinux1_x86_64 \
 # Upload to PyPI.
 twine upload dist/pyrustmpi-<VERSION_NUMBER>-py3-none-manylinux1_x86_64.whl 
 ```
+
+## Gotchas
+
+I'm not totally happy with this project structure.
+
+Things I need to understand better:
+
+- What's the best way of distributing a dynamic library for use in a Python project? This works, but seems like a hack.
+- I'd preferably want to distribute using Conda, how do I do that?
+- How can I build this on Mac, where rsmpi's GCC stuff seems to fail?
+
+Notes:
+
+- RSMPI calls Drop on Communicators at the end of the Rust function, so have to manually manage this memory from Python.
+- Lose quite a lot of information in using C ABI, have to find a way to wrap functions to keep documentation clear.
