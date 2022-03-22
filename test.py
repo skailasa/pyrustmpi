@@ -1,18 +1,17 @@
-import os
+from mpi4py import MPI
+import hello as hw
 
-from cffi import FFI
-# from mpi4py import MPI
+comm = MPI.COMM_WORLD
 
-HERE = os.path.abspath(os.path.dirname(__file__))
-PATH = os.path.join(HERE, "target", "debug", "libpyrustmpi.dylib")
+comm_ptr = MPI._addressof(comm)
+comm_val = hw.ffi.cast('MPI_Comm*', comm_ptr)[0]
+hw.lib.sayhello(comm_val)
+hw.lib.cleanup(comm_val)
 
 
-ffi = FFI()
-
-ffi.cdef("""
-    int initialize_mpi();
-""")
-
-C = ffi.dlopen(PATH)
-u = C.initialize_mpi()
-print(u)
+try:
+    hw.sayhello(list())
+except:
+    pass
+else:
+    assert 0, "exception not raised"
