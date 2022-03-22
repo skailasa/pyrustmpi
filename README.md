@@ -15,7 +15,7 @@ pip install -r requirements.txt && pip install pyrustmpi
 After installation, you can run the hello world `example.py`.
 
 ```bash
-mpiexec -n 4 python -m mpi4py example.py 
+mpiexec -n <nprocs> python -m mpi4py example.py 
 ```
 
 ## Build
