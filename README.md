@@ -7,7 +7,7 @@ Minimal example of Python + Rust + MPI project for Linux projects. Relies on a w
 Install pre-built Python wheel from PyPI
 
 ```bash
-pip install -r requirements && pip install pyrustmpi
+pip install -r requirements.txt && pip install pyrustmpi
 ```
 
 ## Build
