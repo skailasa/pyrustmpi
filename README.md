@@ -10,7 +10,7 @@ Install pre-built Python wheel from PyPI
 pip install -r requirements.txt && pip install pyrustmpi
 ```
 
-## Example
+## Example
 
 After installation, you can run the hello world `example.py`.
 
