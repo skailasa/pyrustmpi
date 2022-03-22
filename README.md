@@ -10,6 +10,14 @@ Install pre-built Python wheel from PyPI
 pip install -r requirements.txt && pip install pyrustmpi
 ```
 
+## Example
+
+After installation, you can run the hello world `example.py`.
+
+```bash
+mpiexec -n 4 python -m mpi4py example.py 
+```
+
 ## Build
 
 ```bash
