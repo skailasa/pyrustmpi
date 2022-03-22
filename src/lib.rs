@@ -13,5 +13,5 @@ pub extern "C" fn sayhello(comm: MPI_Comm) {
 #[no_mangle]
 pub extern "C" fn cleanup(comm: &mut MPI_Comm) 
 {
-    unsafe {MPI_Comm_free(comm) };
+    unsafe {MPI_Comm_free(comm)};
 }

@@ -16,4 +16,12 @@ Cargo.lock
 
 *.pyc
 __pycache__/*
-
+*/__pycache__/*
+*/*.egg-info
+*.egg-info
+*/build/*
+*/dist/*
+dist/*
+build/*
+*.so
+*/*.so
