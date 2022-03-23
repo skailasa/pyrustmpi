@@ -7,3 +7,4 @@ comm_val = ffi.cast('MPI_Comm*', comm_ptr)[0]
 
 lib.sayhello(comm_val)
 lib.cleanup(comm_val)
+

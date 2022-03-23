@@ -10,6 +10,12 @@ Install pre-built Python wheel from PyPI
 pip install -r requirements.txt && pip install pyrustmpi
 ```
 
+Or install from Conda
+
+```bash
+pip install -r requirements.txt && conda install -c skailasa pyrustmpi
+```
+
 ## Example
 
 After installation, you can run the hello world `example.py`.
@@ -31,12 +37,19 @@ pip install -r requirements.txt
 cargo build --release && \
 cp target/release/libpyrustmpi.so python/pyrustmpi/
 
-# Build Python wheel
+# Build Python wheel for PyPI
 cd python &&  \
 python setup.py bdist_wheel --plat-name=manylinux1_x86_64 \
 
+# Build conda package
+cd python && \
+conda build conda.recipe
+
 # Upload to PyPI.
 twine upload dist/pyrustmpi-<VERSION_NUMBER>-py3-none-manylinux1_x86_64.whl 
+
+# Upload to anaconda cloud
+anaconda upload /path/to/tarball
 ```
 
 ## Gotchas
@@ -46,7 +59,6 @@ I'm not totally happy with this project structure.
 Things I need to understand better:
 
 - What's the best way of distributing a dynamic library for use in a Python project? This works, but seems like a hack.
-- I'd preferably want to distribute using Conda, how do I do that?
 - How can I build this on Mac, where rsmpi's GCC stuff seems to fail?
 
 Notes:

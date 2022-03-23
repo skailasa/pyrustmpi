@@ -1,5 +1,7 @@
-from setuptools import setup, Distribution
+from setuptools import setup
 
+# Build requirements
+requirements = []
 
 setup(
     name='pyrustmpi',
@@ -8,5 +10,6 @@ setup(
     packages=['pyrustmpi'],
     package_data={
         'pyrustmpi': ['libpyrustmpi.so']
-    }
+    },
+    zip_safe=False,
 )
