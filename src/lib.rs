@@ -1,17 +1,11 @@
 use mpi::traits::*;
 use mpi::topology::UserCommunicator;
 
-use mpi::ffi::{MPI_Comm, MPI_Comm_free};
+use mpi::ffi::{MPI_Comm};
 
 #[no_mangle]
-pub extern "C" fn sayhello(comm: MPI_Comm) {
-    let comm = std::mem::ManuallyDrop::new(unsafe {UserCommunicator::from_raw(comm)}.unwrap());
+pub extern "C" fn sayhello(comm: usize) {
+    let comm = std::mem::ManuallyDrop::new(unsafe {UserCommunicator::from_raw(*comm as MPI_Comm)}.unwrap());
     let rank = comm.rank();
     println!("Hello from {:?}", rank);
-}
-
-#[no_mangle]
-pub extern "C" fn cleanup(comm: &mut MPI_Comm) 
-{
-    unsafe {MPI_Comm_free(comm)};
 }

@@ -5,7 +5,7 @@ edition = "2018"
 
 [lib]
 name = "pyrustmpi"
-crate-type = ["dylib"]
+crate-type = ["lib", "cdylib"]
 
 [dependencies]
 mpi = { git = "https://github.com/rsmpi/rsmpi", branch = "main"}
