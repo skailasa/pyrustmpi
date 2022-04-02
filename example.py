@@ -14,6 +14,6 @@ vec = MyTypeIter(head, n)
 
 for element in vec:
     # print(MyType(element))
-    print((element))
+    print((element.x))
 
 print(vec)
