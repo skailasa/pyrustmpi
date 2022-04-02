@@ -8,4 +8,5 @@ name = "pyrustmpi"
 crate-type = ["lib", "cdylib"]
 
 [dependencies]
+pyo3 = { version = "0.16", features = ["auto-initialize"] }
 mpi = { git = "https://github.com/rsmpi/rsmpi", branch = "main"}

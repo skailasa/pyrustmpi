@@ -1,8 +1,19 @@
+import numpy as np
 from mpi4py import MPI
-from pyrustmpi import ffi, sayhello
+from pyrustmpi import ffi, sayhello, expose, MyTypeIter, MyType
 
-comm = MPI.COMM_WORLD
-ptr = MPI._addressof(comm)
-raw = ffi.cast('uintptr_t*', ptr)
 
-sayhello(raw)
+# 1. Example of a trivial MPI function
+comm = ffi.cast('uintptr_t*',MPI._addressof(MPI.COMM_WORLD))
+sayhello(comm)
+
+# 2. Example of a trivial Rust buffer exposed as a Python iterator
+n = 10
+head = expose(n)
+vec = MyTypeIter(head, n)
+
+for element in vec:
+    # print(MyType(element))
+    print((element))
+
+print(vec)
