@@ -1,28 +1,49 @@
+"""
+Demo project to test out Rust/Python/MPI ideas
+"""
 from mpi4py import MPI
 import numpy as np
 from .pyrustmpi import lib, ffi
 
+# Native functions
 sayhello = lib.sayhello
 expose = lib.expose
-_next = lib.next
-expose_mytype = lib.expose_mytype
-_next_mytype = lib.next_mytype
 
-
-class MyTypeVec:
-
-    def __init__(self, pointer, len):
-        self._head = pointer
-        self._curr = pointer
-        self._iter = 0
-        self.len = len
+class MyType:
+    """Wrapper for a custom type from Rust"""
+    def __init__(self, pointer):
+        self._pointer = pointer
 
     @property
     def ctype(self):
-        return self._head
+        return self._pointer
 
+    @property
+    def x(self):
+        return self.ctype.x
+
+    def __repr__(self):
+        return 'MyType '+str({'x': self.x})
+
+
+class MyTypeIter:
+    """Interface for an iterator over MyType objects from Rust"""
+    def __init__(self, head, n):
+        self._head = head
+        self._curr = self._head
+        self._iter = 0
+        self._n = n
+
+    @property
+    def curr(self):
+        return MyType(self._curr)
+
+    @property
+    def head(self):
+        return MyType(self._head)
+    
     def __len__(self):
-        return self.len
+        return self._n
 
     def __iter__(self):
         self._curr = self._head
@@ -31,10 +52,9 @@ class MyTypeVec:
 
     def __next__(self):
         _curr = self._curr
-        _iter = self._iter
-        _next = lib.next_mytype(self._curr)[0]
+        _next = lib.next(self._curr)[0]
 
-        if _iter < self.len:
+        if self._iter < len(self):
             if _curr != _next:
                 self._curr = _next
                 self._iter += 1
@@ -44,4 +64,7 @@ class MyTypeVec:
 
     @property
     def x(self):
-        return self._curr.x
+        return self.curr.x
+
+    def __repr__(self):
+        return 'MyTypeVec '+str({'len': len(self), 'head': self.head})
