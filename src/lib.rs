@@ -35,7 +35,7 @@ pub extern "C" fn expose(n: usize) -> *mut MyType {
 #[no_mangle]
 pub extern "C" fn next(ptr: *const MyType) -> *mut &'static MyType {
     let mut slice = unsafe {std::slice::from_raw_parts(ptr, 2).iter()};
-    let _ = slice.next();
+    slice.next();
     let next = slice.next().unwrap();
     Box::into_raw(Box::new(next))
 }
