@@ -12,8 +12,5 @@ n = 10
 head = expose(n)
 vec = MyTypeIter(head, n)
 
-for element in vec:
-    # print(MyType(element))
-    print((element.x))
-
+print(vec[1:4])
 print(vec)

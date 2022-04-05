@@ -40,3 +40,25 @@ pub extern "C" fn next(ptr: *const MyType) -> *mut &'static MyType {
     Box::into_raw(Box::new(next))
 }
 
+
+#[no_mangle]
+pub extern "C" fn slice(ptr: *const MyType, data_ptr: *mut usize,  len: usize, start: usize, stop: usize) {
+    
+    let mut slice = unsafe {std::slice::from_raw_parts(ptr, len)};
+
+    let nslice = stop-start;
+    let boxes = unsafe {std::slice::from_raw_parts_mut(data_ptr, nslice)};
+    
+    let mut jdx = 0; 
+    for idx in start..stop {
+        let item = slice[idx];
+        boxes[jdx] = Box::into_raw(Box::new(item)) as usize;
+        jdx += 1;
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn index(ptr: *const MyType, len: usize, idx: usize) -> *mut &'static MyType {
+    let mut slice = unsafe {std::slice::from_raw_parts(ptr, len)};
+    Box::into_raw(Box::new(&slice[idx]))
+}
