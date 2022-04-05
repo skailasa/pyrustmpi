@@ -1,3 +1,6 @@
+"""
+Simple Examples
+"""
 import numpy as np
 from mpi4py import MPI
 from pyrustmpi import ffi, sayhello, expose, MyTypeIter, MyType

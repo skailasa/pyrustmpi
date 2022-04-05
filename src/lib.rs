@@ -51,8 +51,7 @@ pub extern "C" fn slice(ptr: *const MyType, data_ptr: *mut usize,  len: usize, s
     
     let mut jdx = 0; 
     for idx in start..stop {
-        let item = slice[idx];
-        boxes[jdx] = Box::into_raw(Box::new(item)) as usize;
+        boxes[jdx] = Box::into_raw(Box::new(slice[idx])) as usize;
         jdx += 1;
     }
 }
