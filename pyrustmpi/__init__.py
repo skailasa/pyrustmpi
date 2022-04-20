@@ -1,7 +1,6 @@
 """
 Demo project to test out Rust/Python/MPI ideas
 """
-from mpi4py import MPI
 import numpy as np
 from .pyrustmpi import lib, ffi
 
@@ -41,7 +40,7 @@ class MyTypeIter:
     @property
     def head(self):
         return MyType(self._head)
-    
+
     def __len__(self):
         return self._n
 
