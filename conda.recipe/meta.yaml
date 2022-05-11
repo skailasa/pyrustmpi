@@ -1,0 +1,32 @@
+package:
+  name: pyrustmpi
+  version: 1.0.0
+
+source:
+  path: ../
+
+requirements:
+  build:
+    - gcc
+    - clang
+  
+  host:
+    - python 3.8
+    - rust
+    - pip
+    - openmpi
+    - maturin
+    - cffi >=1.15
+
+  run: 
+    - openmpi
+    - python 3.8
+    - mpi4py
+    - numpy
+    - cffi >=1.15
+
+build:
+  noarch: generic
+  script: maturin build && python -m pip install .
+
+  
