@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["ubuntu-latest", "macos-latest"]
+        os: ["macos-latest"]
         python-version: ["3.8"]
 
     steps:
@@ -19,12 +19,6 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - uses: actions/checkout@v3
-
-      # - name: Install GCC (MacOS)
-      #   if: runner.os == 'macOS'
-      #   run: |
-      #     bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-      #     brew install gcc
 
       - name: Install Conda Build
         shell: bash -l {0}
@@ -38,9 +32,12 @@ jobs:
         shell: bash -l {0}
         run: conda install anaconda-client
 
-      - name: Upload Linux (${{ matrix.python-version }}
+      - name: Upload Linux (${{ matrix.python-version }})
         if: runner.os == 'Linux'
+        shell: bash -l {0}
         run: anaconda -t ${{ secrets.ANACONDA }} upload --force --user skailasa  /usr/share/miniconda/envs/test/conda-bld/linux-64/pyrustmpi-*.tar.bz2
-      - name: Upload Mac (${{ matrix.python-version }}
+
+      - name: Upload Mac (${{ matrix.python-version }})
         if: runner.os == 'macOS'
+        shell: bash -l {0}
         run: anaconda -t ${{ secrets.ANACONDA }} upload --force --user skailasa  /usr/share/miniconda/envs/test/conda-bld/osx-64/pyrustmpi-*.tar.bz2

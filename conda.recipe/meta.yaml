@@ -11,7 +11,7 @@ requirements:
     - clang
 
   host:
-    - mpich
+    - mpich-mpicc
     - rust
     - python
     - pip
@@ -19,7 +19,7 @@ requirements:
     - cffi >=1.15
 
   run:
-    - mpich
+    - mpich-mpicc
     - python
     - mpi4py
     - numpy 1.22.2
