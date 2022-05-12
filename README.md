@@ -22,7 +22,7 @@ Release mode
 maturin build . --release && python -m pip install .
 ```
 
-# Install Built Python Package From Anaconda
+## Install Built Python Package From Anaconda
 
 Linux/MacOS packages available from Anaconda Cloud into a Conda environment.
 
