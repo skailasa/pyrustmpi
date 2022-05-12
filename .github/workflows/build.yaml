@@ -32,4 +32,4 @@ jobs:
         shell: bash -l {0}
         run: |
              conda install anaconda-client
-             anaconda -t ${{ secrets.ANACONDA }} upload -user skailasa  /usr/share/miniconda/envs/test/conda-bld/noarch/pyrustmpi-*.tar.bz2
+             anaconda -t ${{ secrets.ANACONDA }} upload --user skailasa  /usr/share/miniconda/envs/test/conda-bld/noarch/pyrustmpi-*.tar.bz2
