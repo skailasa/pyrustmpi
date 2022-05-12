@@ -30,4 +30,6 @@ jobs:
 
       - name: Upload (${{ matrix.python-version }}, ${{ matrix.os }})
         shell: bash -l {0}
-        run: anaconda -t $ANACONDA upload -user skailasa  /usr/share/miniconda/envs/test/conda-bld/noarch/pyrustmpi-*.tar.bz2
+        run: |
+             conda install anaconda-client
+             anaconda -t ${{ secrets.ANACONDA }} upload -user skailasa  /usr/share/miniconda/envs/test/conda-bld/noarch/pyrustmpi-*.tar.bz2
