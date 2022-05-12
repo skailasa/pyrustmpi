@@ -21,7 +21,6 @@ requirements:
   run:
     - mpich-mpicc
     - python
-    - mpi4py
     - numpy 1.22.2
     - cffi >=1.15
 
