@@ -10,19 +10,24 @@ jobs:
       fail-fast: false
       matrix:
         os: ["ubuntu-latest", "macos-latest"]
+        mpi: ["mpich"]
         python-version: ["3.8"]
+
     steps:
       - uses: conda-incubator/setup-miniconda@v2
         with:
           auto-update-conda: true
           python-version: ${{ matrix.python-version }}
       - uses: actions/checkout@v3
-        with:
-          ref: main
+
       - name: Install Conda Build
         shell: bash -l {0}
         run: conda install conda-build
 
       - name: Build
         shell: bash -l {0}
-        run: conda build conda.recipe -c conda-forge -c anaconda
+        run: conda build -c conda-forge -c anaconda conda.recipe
+
+      - name: Upload (${{ matrix.python-version }}, ${{ matrix.os }})
+        shell: bash -l {0}
+        run: anaconda -t $ANACONDA upload -user skailasa  /usr/share/miniconda/envs/test/conda-bld/noarch/pyrustmpi-*.tar.bz2
