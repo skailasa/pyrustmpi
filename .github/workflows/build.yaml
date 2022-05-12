@@ -28,6 +28,11 @@ jobs:
         shell: bash -l {0}
         run: conda build -c conda-forge -c anaconda conda.recipe --py ${{ matrix.python-version }}
 
+      - name: Verify
+        shell: bash -l {0}
+        run: |
+          conda install conda-verify
+
       - name: Install Anaconda Client
         shell: bash -l {0}
         run: conda install anaconda-client
