@@ -11,21 +11,19 @@ requirements:
     - clang
 
   host:
-    - {{ mpi }}
+    - mpich
     - rust
-    - python {{ python }}
+    - python
     - pip
     - maturin
     - cffi >=1.15
 
   run:
-    - {{ mpi }}
-    - python {{ python }}
+    - mpich
+    - python
     - mpi4py
     - numpy 1.22.2
     - cffi >=1.15
 
 build:
-  name: pyrustmpi-{{ mpi }}-py{{ python }}
-  noarch: generic
   script: maturin build && python -m pip install .

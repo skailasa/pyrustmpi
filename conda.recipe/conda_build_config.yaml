@@ -1,4 +1,0 @@
-mpi:
-  - openmpi # [osx]
-  - mpich # [linux]
-  - msmpi # [win]
