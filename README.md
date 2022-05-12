@@ -1,3 +1,7 @@
+[![Anaconda-Server Badge](https://anaconda.org/skailasa/pyrustmpi/badges/platforms.svg)](https://anaconda.org/skailasa/pyrustmpi)
+
+[![Anaconda-Server Badge](https://anaconda.org/skailasa/pyrustmpi/badges/version.svg)](https://anaconda.org/skailasa/pyrustmpi)
+
 # PyRustMPI
 
 Minimal example of Python + Rust + MPI project for Linux projects. Relies on a working MPI installation being available on your system.
