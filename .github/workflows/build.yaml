@@ -3,8 +3,8 @@ name: Publish To Anaconda
 on: [push]
 
 jobs:
-  example-1:
-    name: Ex1 (${{ matrix.python-version }}, ${{ matrix.os }})
+  build:
+    name: Build (${{ matrix.python-version }}, ${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -22,3 +22,7 @@ jobs:
       - name: Install Conda Build
         shell: bash -l {0}
         run: conda install conda-build
+
+      - name: Build
+        shell: bash -l {0}
+        run: conda build conda.recipe
