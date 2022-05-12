@@ -9,26 +9,44 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["ubuntu-latest"]
-        python-version: ["3.8", "3.9", "3.10"]
+        os: ["ubuntu-latest", "macos-latest"]
+        python-version: ["3.8"]
 
     steps:
       - uses: conda-incubator/setup-miniconda@v2
         with:
           auto-update-conda: true
           python-version: ${{ matrix.python-version }}
+
       - uses: actions/checkout@v3
 
-      - name: Install Conda Build
-        shell: bash -l {0}
-        run: conda install conda-build
-
-      - name: Build
-        shell: bash -l {0}
-        run: conda build -c conda-forge -c anaconda conda.recipe --py ${{ matrix.python-version }}
-
-      - name: Upload (${{ matrix.python-version }}, ${{ matrix.os }})
+      - name: Install HomeBrew (macos)
         shell: bash -l {0}
         run: |
-             conda install anaconda-client
-             anaconda -t ${{ secrets.ANACONDA }} upload --force --user skailasa  /usr/share/miniconda/envs/test/conda-bld/noarch/pyrustmpi-*.tar.bz2
+             if [ "RUNNER_OS" == "macOS" ]; then
+              bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+              brew install gcc
+             fi
+
+
+      # - name: Install Conda Build
+      #   shell: bash -l {0}
+      #   run: conda install conda-build
+
+      # - name: Build
+      #   shell: bash -l {0}
+      #   run: conda build -c conda-forge -c anaconda conda.recipe --py ${{ matrix.python-version }}
+
+      # - name: Upload (${{ matrix.python-version }}, ${{ matrix.os }})
+      #   shell: bash -l {0}
+      #   run: |
+      #        conda install anaconda-client
+
+      #       if [ "$RUNNER_OS" == "Linux" ]; then
+      #         anaconda -t ${{ secrets.ANACONDA }} upload --force --user skailasa  /usr/share/miniconda/envs/test/conda-bld/linux-64/pyrustmpi-*.tar.bz2
+      #       elif  [ "$RUNNER_OS" == "macOS" ]; then
+      #         anaconda -t ${{ secrets.ANACONDA }} upload --force --user skailasa  /usr/share/miniconda/envs/test/conda-bld/osx-64/pyrustmpi-*.tar.bz2
+      #       else
+      #         echo "$RUNNER_OS not supported"
+      #         exit 1
+      #       fi

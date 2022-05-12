@@ -7,7 +7,7 @@ source:
 
 requirements:
   build:
-    - gcc
+    - gcc # [linux]
     - clang
 
   host:
