@@ -38,8 +38,9 @@ jobs:
         shell: bash -l {0}
         run: conda install anaconda-client
 
-      - name: Upload (${{ matrix.python-version }}, ${{ matrix.os }})
+      - name: Upload Linux (${{ matrix.python-version }}
         if: runner.os == 'Linux'
         run: anaconda -t ${{ secrets.ANACONDA }} upload --force --user skailasa  /usr/share/miniconda/envs/test/conda-bld/linux-64/pyrustmpi-*.tar.bz2
+      - name: Upload Mac (${{ matrix.python-version }}
         if: runner.os == 'macOS'
         run: anaconda -t ${{ secrets.ANACONDA }} upload --force --user skailasa  /usr/share/miniconda/envs/test/conda-bld/osx-64/pyrustmpi-*.tar.bz2
