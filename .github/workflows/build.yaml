@@ -25,4 +25,4 @@ jobs:
 
       - name: Build
         shell: bash -l {0}
-        run: conda build conda.recipe
+        run: conda build conda.recipe -c conda-forge -c anaconda
