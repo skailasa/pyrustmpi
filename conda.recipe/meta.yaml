@@ -9,24 +9,23 @@ requirements:
   build:
     - gcc
     - clang
-  
+
   host:
-    - python 3.8
+    - {{ mpi }}
     - rust
+    - python {{ python }}
     - pip
-    - openmpi
     - maturin
     - cffi >=1.15
 
-  run: 
-    - openmpi
-    - python 3.8
+  run:
+    - {{ mpi }}
+    - python {{ python }}
     - mpi4py
-    - numpy
+    - numpy 1.22.2
     - cffi >=1.15
 
 build:
+  name: pyrustmpi-{{ mpi }}-py{{ python }}
   noarch: generic
   script: maturin build && python -m pip install .
-
-  
