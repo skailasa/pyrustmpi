@@ -20,14 +20,11 @@ jobs:
 
       - uses: actions/checkout@v3
 
-      - name: Install HomeBrew (macos)
-        shell: bash -l {0}
+      - name: Install GCC (MacOS)
+        if: runner.os == 'macOS'
         run: |
-             if [ "RUNNER_OS" == "macOS" ]; then
-              bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-              brew install gcc
-             fi
-
+          bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          brew install gcc
 
       # - name: Install Conda Build
       #   shell: bash -l {0}
