@@ -2,7 +2,7 @@
 
 Minimal example of Python + Rust + MPI project for Linux projects. Relies on a working MPI installation being available on your system.
 
-# Build using Maturin
+# Build Rust+Python Packages From Source
 
 Install maturin crate
 
@@ -13,13 +13,26 @@ cargo install maturin
 Maturin automatically creates dynamic library as well as all headers in a platform agnostic way.
 
 ```bash
-maturin develop
+maturin build . && python -m pip install .
 ```
 
 Release mode
 
 ```bash
-maturin develop --release
+maturin build . --release && python -m pip install .
 ```
 
+# Install Built Python Package From Anaconda
 
+Linux/MacOS packages available from Anaconda Cloud into a Conda environment.
+
+```bash
+conda install -c skailasa pyrustmpi
+```
+
+Install mpi4py dependency separately, to ensure that correct pointers are
+created to shared libraries when installing into a virtual environment
+
+```
+env MPICC=/path/to/mpicc python -m pip install mpi4py
+```
