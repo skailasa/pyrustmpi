@@ -34,16 +34,12 @@ jobs:
         shell: bash -l {0}
         run: conda build -c conda-forge -c anaconda conda.recipe --py ${{ matrix.python-version }}
 
-      - name: Upload (${{ matrix.python-version }}, ${{ matrix.os }})
+      - name: Install Anaconda Client
         shell: bash -l {0}
-        run: |
-             conda install anaconda-client
+        run: conda install anaconda-client
 
-            if [ "$RUNNER_OS" == "Linux" ]; then
-              anaconda -t ${{ secrets.ANACONDA }} upload --force --user skailasa  /usr/share/miniconda/envs/test/conda-bld/linux-64/pyrustmpi-*.tar.bz2
-            elif  [ "$RUNNER_OS" == "macOS" ]; then
-              anaconda -t ${{ secrets.ANACONDA }} upload --force --user skailasa  /usr/share/miniconda/envs/test/conda-bld/osx-64/pyrustmpi-*.tar.bz2
-            else
-              echo "$RUNNER_OS not supported"
-              exit 1
-            fi
+      - name: Upload (${{ matrix.python-version }}, ${{ matrix.os }})
+        if: runner.os == 'Linux'
+        run: anaconda -t ${{ secrets.ANACONDA }} upload --force --user skailasa  /usr/share/miniconda/envs/test/conda-bld/linux-64/pyrustmpi-*.tar.bz2
+        if: runner.os == 'macOS'
+        run: anaconda -t ${{ secrets.ANACONDA }} upload --force --user skailasa  /usr/share/miniconda/envs/test/conda-bld/osx-64/pyrustmpi-*.tar.bz2
