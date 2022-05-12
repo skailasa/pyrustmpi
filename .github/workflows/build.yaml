@@ -20,30 +20,30 @@ jobs:
 
       - uses: actions/checkout@v3
 
-      - name: Install GCC (MacOS)
-        if: runner.os == 'macOS'
-        run: |
-          bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-          brew install gcc
-
-      # - name: Install Conda Build
-      #   shell: bash -l {0}
-      #   run: conda install conda-build
-
-      # - name: Build
-      #   shell: bash -l {0}
-      #   run: conda build -c conda-forge -c anaconda conda.recipe --py ${{ matrix.python-version }}
-
-      # - name: Upload (${{ matrix.python-version }}, ${{ matrix.os }})
-      #   shell: bash -l {0}
+      # - name: Install GCC (MacOS)
+      #   if: runner.os == 'macOS'
       #   run: |
-      #        conda install anaconda-client
+      #     bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      #     brew install gcc
 
-      #       if [ "$RUNNER_OS" == "Linux" ]; then
-      #         anaconda -t ${{ secrets.ANACONDA }} upload --force --user skailasa  /usr/share/miniconda/envs/test/conda-bld/linux-64/pyrustmpi-*.tar.bz2
-      #       elif  [ "$RUNNER_OS" == "macOS" ]; then
-      #         anaconda -t ${{ secrets.ANACONDA }} upload --force --user skailasa  /usr/share/miniconda/envs/test/conda-bld/osx-64/pyrustmpi-*.tar.bz2
-      #       else
-      #         echo "$RUNNER_OS not supported"
-      #         exit 1
-      #       fi
+      - name: Install Conda Build
+        shell: bash -l {0}
+        run: conda install conda-build
+
+      - name: Build
+        shell: bash -l {0}
+        run: conda build -c conda-forge -c anaconda conda.recipe --py ${{ matrix.python-version }}
+
+      - name: Upload (${{ matrix.python-version }}, ${{ matrix.os }})
+        shell: bash -l {0}
+        run: |
+             conda install anaconda-client
+
+            if [ "$RUNNER_OS" == "Linux" ]; then
+              anaconda -t ${{ secrets.ANACONDA }} upload --force --user skailasa  /usr/share/miniconda/envs/test/conda-bld/linux-64/pyrustmpi-*.tar.bz2
+            elif  [ "$RUNNER_OS" == "macOS" ]; then
+              anaconda -t ${{ secrets.ANACONDA }} upload --force --user skailasa  /usr/share/miniconda/envs/test/conda-bld/osx-64/pyrustmpi-*.tar.bz2
+            else
+              echo "$RUNNER_OS not supported"
+              exit 1
+            fi
