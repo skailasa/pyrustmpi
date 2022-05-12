@@ -2,7 +2,7 @@
 
 Minimal example of Python + Rust + MPI project for Linux projects. Relies on a working MPI installation being available on your system.
 
-# Build Rust+Python Packages From Source
+## Build From Source
 
 Install maturin crate
 
