@@ -61,3 +61,4 @@ pub extern "C" fn index(ptr: *const MyType, len: usize, idx: usize) -> *mut &'st
     let slice = unsafe {std::slice::from_raw_parts(ptr, len)};
     Box::into_raw(Box::new(&slice[idx]))
 }
+  

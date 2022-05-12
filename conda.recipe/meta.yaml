@@ -27,5 +27,4 @@ requirements:
 
 build:
   name: pyrustmpi-{{ mpi }}-py{{ python }}
-  noarch: generic
   script: maturin build && python -m pip install .
