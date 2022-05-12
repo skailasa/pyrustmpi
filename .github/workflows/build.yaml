@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["macos-latest"]
+        os: ["ubuntu-latest", "macos-latest"]
         python-version: ["3.8"]
 
     steps:
@@ -40,4 +40,4 @@ jobs:
       - name: Upload Mac (${{ matrix.python-version }})
         if: runner.os == 'macOS'
         shell: bash -l {0}
-        run: anaconda -t ${{ secrets.ANACONDA }} upload --force --user skailasa  /usr/share/miniconda/envs/test/conda-bld/osx-64/pyrustmpi-*.tar.bz2
+        run: anaconda -t ${{ secrets.ANACONDA }} upload --force --user skailasa  /usr/local/miniconda/envs/test/conda-bld/osx-64/pyrustmpi-*.tar.bz2

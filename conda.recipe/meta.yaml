@@ -26,4 +26,4 @@ requirements:
     - cffi >=1.15
 
 build:
-  script: maturin build && python -m pip install .
+  script: maturin build --release && python -m pip install .
