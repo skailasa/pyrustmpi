@@ -16,6 +16,9 @@ jobs:
         with:
           auto-update-conda: true
           python-version: ${{ matrix.python-version }}
-      - name: Conda info
+      - uses: actions/checkout@v3
+        with:
+          ref: main
+      - name: Install Conda Build
         shell: bash -l {0}
-        run: conda info
+        run: conda install conda-build
