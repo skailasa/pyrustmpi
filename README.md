@@ -41,3 +41,7 @@ created to shared libraries when installing into a virtual environment
 ```
 env MPICC=/path/to/mpicc python -m pip install mpi4py
 ```
+
+### Notes
+
+Installation requires that your channel list contains `conda-forge`.
