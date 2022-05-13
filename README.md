@@ -8,27 +8,28 @@
 Minimal example of Python + Rust + MPI project for Mac and Linux projects.
 
 
-## Build From Source
+## Build
 
-Install maturin crate
-
-```bash
-cargo install maturin
-```
-
-Maturin automatically creates dynamic library as well as all headers in a platform agnostic way.
+Using Conda Build to generate a Conda package
 
 ```bash
-maturin build . && python -m pip install .
+conda build conda.recipe
 ```
 
-Release mode
+Alternatively, build from within a virtual environment manually.
 
 ```bash
-maturin build . --release && python -m pip install .
+# Create a virtulenv called 'build'
+conda env create -f environment.yaml && conda activate build
+
+# Build just Rust package with Cargo
+cargo build
+
+# Build combined Rust and Python package with Maturin
+maturin build
 ```
 
-## Install Built Python Package From Anaconda
+## Install
 
 Linux/MacOS packages available from Anaconda Cloud into a Conda environment.
 
@@ -43,6 +44,4 @@ created to shared libraries when installing into a virtual environment
 env MPICC=/path/to/mpicc python -m pip install mpi4py
 ```
 
-### Notes
-
-Installation requires that your channel list contains `conda-forge`.
+**Installation requires that your channel list contains `conda-forge`.**
