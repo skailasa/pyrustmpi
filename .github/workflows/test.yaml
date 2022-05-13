@@ -1,0 +1,48 @@
+name: Test
+
+on:
+  pull_request:
+    types: [opened, reopened]
+
+jobs:
+  build:
+    name: Build (${{ matrix.python-version }}, ${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ["ubuntu-latest", "macos-latest"]
+        python-version: ["3.8", "3.9", "3.10"]
+
+    steps:
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          auto-update-conda: true
+          python-version: ${{ matrix.python-version }}
+
+      - uses: actions/checkout@v3
+
+      - name: Install Conda Build
+        shell: bash -l {0}
+        run: conda install conda-build
+
+      - name: Install Conda Verify
+        shell: bash -l {0}
+        run: |
+          conda install conda-verify
+
+      - name: Build
+        shell: bash -l {0}
+        run: conda build -c conda-forge -c anaconda conda.recipe --py ${{ matrix.python-version }}
+
+      - name: Install
+        shell: bash -l {0}
+        run: conda install -c local pyrustmpi
+
+      - name: Rust Tests
+        shell: bash -l {0}
+        run: cargo test
+
+      - name: Python Tests
+        shell: bash -l {0}
+        run: pip install pytest && pytest pyrustmpi
