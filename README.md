@@ -31,7 +31,7 @@ maturin build
 
 ## Install
 
-Linux/MacOS packages available from Anaconda Cloud into a Conda environment.
+Install from Anaconda Cloud into a Conda environment.
 
 ```bash
 conda install -c skailasa pyrustmpi
