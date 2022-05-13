@@ -1,4 +1,4 @@
-name: Test
+name: Python and Rust Tests
 
 on:
   pull_request:
